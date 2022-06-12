@@ -14,7 +14,7 @@
                 <!-- ITEMS A LA IZQUIERDA DE LA BARRA DE NAVEGACION -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Consultas</a>
+                        <a class="nav-link" href="<?= "$URL/abmConsulta"; ?>">Consultas</a>
                     </li>
                     <!-- DROPDOWN -->
                     <!-- <li class="nav-item dropdown">

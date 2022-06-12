@@ -1,15 +1,5 @@
 <?php
 
-function vista1()
-{
-    require "./views/templates/vista1.php";
-}
-
-function vista2()
-{
-    require "./views/templates/vista2.php";
-}
-
 function get_view()
 {
     if (isset($_GET['views'])) {
@@ -23,7 +13,7 @@ function get_view()
 
 function validaRuta($path)
 {
-    $listaBlanca = ["login", "register", "contact", "sitemap"];
+    $listaBlanca = ["login", "register", "contact", "sitemap", "abmConsulta"];
     if (in_array($path, $listaBlanca)) {
         if (is_file("./views/templates/" . $path . ".php")) {
             $respuesta = "./views/templates/" . $path . ".php";

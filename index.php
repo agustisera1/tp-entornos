@@ -1,7 +1,7 @@
 <?php
 
 $host  = $_SERVER['HTTP_HOST'];
-$URL = "http://$host/prueba-rutas";
+$URL = "http://$host/tp-entornos";
 
 // HEADER Y BARRA DE NAVEGACION
 include_once "./views/templates/head.php";
