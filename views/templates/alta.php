@@ -1,3 +1,4 @@
+<!-- FORMULARIO DE ALTA DE CONSULTA -->
 <div class="container p-4">
     <h3 class="text-center">Agregar nueva consulta</h3>
     <div class="row d-flex justify-content-center">

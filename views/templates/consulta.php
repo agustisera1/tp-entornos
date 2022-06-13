@@ -1,3 +1,4 @@
+<!-- TABLA DE CONSULTAS -->
 <?php
   function crearConsulta() {
     $materias = ['Química', 'Álgebra', 'Matemática Superior', 'Sistemas Operativos', 'Entornos gráficos', 'Física II'];

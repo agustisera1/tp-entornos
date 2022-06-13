@@ -20,6 +20,8 @@ function validaRuta($path)
         } else {
             $respuesta = "index.php";
         }
+    } else {
+        $respuesta = "./views/templates/error.php";
     }
     return $respuesta;
 }
