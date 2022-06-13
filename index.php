@@ -13,7 +13,6 @@ require_once "./controllers/vistaController.php";
 // FIN HEADER
 
 // CONTENIDO DE LA PAGINA
-echo "<div class='container'>";
 $vista = get_view();
 if ($vista != "index.php") {
 
@@ -21,7 +20,6 @@ if ($vista != "index.php") {
 } else {
     require_once "./views/templates/jumbotron.php";
 }
-echo "</div>";
 // FIN CONTENIDO DE LA PAGINA
 
 // FOOTER
