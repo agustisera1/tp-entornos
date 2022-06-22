@@ -14,9 +14,8 @@ require_once "./controllers/vistaController.php";
 
 // CONTENIDO DE LA PAGINA
 $vista = get_view();
-if ($vista != "index.php") {
-
-    require_once $vista;
+if ($vista[0] != "index.php") {
+    require_once $vista[0];
 } else {
     require_once "./views/templates/jumbotron.php";
 }

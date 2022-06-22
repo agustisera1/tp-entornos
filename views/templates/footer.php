@@ -9,7 +9,7 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto my-auto">
                     <!-- Content -->
-                    <img src="./views/static/img/logo-utn-footer.png" class="img-fluid" alt="Logo UTN">
+                    <img src=<?= "$URL/views/static/img/logo-utn-footer.png" ?> class="img-fluid" alt="Logo UTN">
 
                 </div>
                 <!-- Grid column -->
@@ -25,6 +25,9 @@
                     </p>
                     <p>
                         <a href="<?= "$URL/contact"; ?>" class="text-reset">Contactanos</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-reset">Preguntas Frecuentes</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -43,9 +46,6 @@
                     </p>
                     <p>
                         <a href="https://frro.cvg.utn.edu.ar/" class="text-reset" target="_blank">Campus Virtual</a>
-                    </p>
-                    <p>
-                        <a href="#" class="text-reset" target="_blank">Help</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -102,8 +102,6 @@
 
 <!-- BOOTSTRAP JS 5.1.3 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<!-- MDB -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.1.0/mdb.min.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,16 @@
 <?php
-
+require_once "./models/Usuario.php";
+include_once "./database/connection.php";
 
 function findUsuarioByLegajo($legajo)
 {
     $usuario = null;
     try {
-        require_once "./models/Usuario.php";
-        require "./database/connection.php";
+        if (!isset($conn)) $conn = databaseConnection();
 
         $query = "SELECT * FROM usuario WHERE legajo = ?";
 
-        $stmt = mysqli_prepare($link, $query);
+        $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "s", $legajo);
         mysqli_stmt_execute($stmt);
 
@@ -32,6 +32,37 @@ function findUsuarioByLegajo($legajo)
     } finally {
         if (isset($rs)) mysqli_free_result($rs);
         if (isset($stmt)) mysqli_stmt_close($stmt);
-        if (isset($link)) mysqli_close($link);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+function findAllProfesores()
+{
+    $listadoProfesores = array();
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "SELECT * FROM usuario AS u INNER JOIN usuario_rol AS ur ON u.legajo=ur.usuario_legajo INNER JOIN rol ON ur.rol_id=rol.id WHERE rol.descripcion = 'Profesor';";
+
+        $rs = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($rs) > 0) {
+            foreach ($rs as $item) {
+                $profesor = new Usuario();
+                $profesor->setLegajo($item['legajo']);
+                $profesor->setNombre($item['nombre']);
+                $profesor->setApellido($item['apellido']);
+                $profesor->setEmail($item['email']);
+
+                array_push($listadoProfesores, $profesor);
+            }
+        }
+        return $listadoProfesores;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
     }
 }

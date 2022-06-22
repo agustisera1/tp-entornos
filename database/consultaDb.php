@@ -1,20 +1,20 @@
 <?php
+include_once "./database/connection.php";
+require_once "./models/Consulta.php";
+require_once "./database/materiaDb.php";
+require_once "./database/usuarioDb.php";
+
 
 function findAllConsultas()
 {
     $listadoConsultas = array();
 
     try {
-        require_once "./models/Consulta.php";
-        require "./database/connection.php";
-        require_once "./database/materiaDb.php";
-        require_once "./database/usuarioDb.php";
+        if (!isset($conn)) $conn = databaseConnection();
 
-        // $query = "SELECT c.id , c.fecha_hora_inicio, c.fecha_hora_fin, c.modalidad, c.link, c.cupo, CONCAT(u.nombre, ' ', u.apellido) AS profesor, m.nombre AS materia";
-        //$query .= " FROM consulta AS c INNER JOIN materia AS m ON c.materia_id=m.id INNER JOIN usuario AS u ON c.profesor_legajo=u.legajo";
         $query = "SELECT * FROM consulta";
 
-        $rs = mysqli_query($link, $query);
+        $rs = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($rs) > 0) {
             foreach ($rs as $item) {
@@ -37,24 +37,103 @@ function findAllConsultas()
         echo $e->getMessage();
     } finally {
         if (isset($rs)) mysqli_free_result($rs);
-        if (isset($link)) mysqli_close($link);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
     }
 }
 
-function saveConsulta($fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia, $profesor)
+function saveConsulta($fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
 {
     try {
-        require_once "./database/connection.php";
+        if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "INSERT INTO consulta ";
+        $query = "INSERT INTO consulta (fecha_hora_inicio, fecha_hora_fin, modalidad, link, cupo, profesor_legajo, materia_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        $listado = mysqli_query($link, $query);
-
-        return $listado;
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ssssiii", $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $cupo, $profesor_legajo, $materia_id);
+        mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
     } finally {
-        if (isset($listado)) mysqli_free_result($listado);
-        if (isset($link)) mysqli_close($link);
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+function updateConsulta($id, $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
+{
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "UPDATE consulta SET fecha_hora_inicio = ?, fecha_hora_fin = ?, modalidad = ?, link = ?, cupo = ?, profesor_legajo = ?, materia_id = ? WHERE id = ?";
+
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ssssiiii", $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $cupo, $profesor_legajo, $materia_id, $id);
+        mysqli_stmt_execute($stmt);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+
+function findConsultaById($id)
+{
+    $consulta = null;
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "SELECT * FROM consulta WHERE id = ?";
+
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+
+        $rs = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($rs) > 0) {
+            $c = mysqli_fetch_assoc($rs);
+            $consulta = new Consulta();
+            $consulta->setId($c['id']);
+            $consulta->setFechaHoraInicio($c['fecha_hora_inicio']);
+            $consulta->setFechaHoraFin($c['fecha_hora_fin']);
+            $consulta->setModalidad($c['modalidad']);
+            $consulta->setLink($c['link']);
+            $consulta->setCupo($c['cupo']);
+
+            $consulta->setProfesor(findUsuarioByLegajo($c['profesor_legajo']));
+            $consulta->setMateria(findMateriaById($c['materia_id']));
+        }
+
+        return $consulta;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+function deleteConsultaById($id)
+{
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "DELETE FROM consulta WHERE id = ?";
+
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
     }
 }

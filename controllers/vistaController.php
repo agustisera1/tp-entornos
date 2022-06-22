@@ -2,18 +2,31 @@
 
 function get_view()
 {
-    if (isset($_GET['views'])) {
-        $ruta = explode("/", $_GET['views']);
-        $respuesta = validaRuta($ruta[0]);
+    $respuesta = array();
+    if (isset($_GET['params'])) {
+        $ruta = explode("/", $_GET['params']);
+        // array_push($respuesta, validaRuta($ruta[0]));
+        // if (isset($ruta[1])) array_push($respuesta, $ruta[1]);
+        for ($i = 0; $i < count($ruta); $i++) {
+            if ($i == 0) {
+                $respuesta[$i] = validaRuta($ruta[0]);
+            } else {
+                // if ($respuesta[0] == validaRuta($ruta[$i])) {
+                //     $respuesta[0] = validaRuta("error");
+                //     break;
+                // }
+                $respuesta[$i] = $ruta[$i];
+            }
+        }
     } else {
-        $respuesta = "index.php";
+        array_push($respuesta, "index.php");
     }
     return $respuesta;
 }
 
 function validaRuta($path)
 {
-    $listaBlanca = ["login", "register", "contact", "sitemap", "alta", "consulta", "modificacion"];
+    $listaBlanca = ["login", "register", "contact", "sitemap", "nueva_consulta", "listado_consultas", "editar_consulta", "borrar_consulta"];
     if (in_array($path, $listaBlanca)) {
         if (is_file("./views/templates/" . $path . ".php")) {
             $respuesta = "./views/templates/" . $path . ".php";

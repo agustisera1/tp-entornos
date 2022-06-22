@@ -1,7 +1,11 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gestion-consultas-db";
+function databaseConnection()
+{
+    $server = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "gestion-consultas-db";
 
-$link = mysqli_connect($server, $username, $password, $dbname) or die("Connection failed");
+    $conn = mysqli_connect($server, $username, $password, $dbname) or die("Connection failed");
+    return $conn;
+}
