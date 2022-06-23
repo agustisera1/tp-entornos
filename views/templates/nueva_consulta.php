@@ -1,7 +1,7 @@
 <!-- FORMULARIO DE ALTA DE CONSULTA -->
 <?php
 require_once "./controllers/consultaController.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
     $alert = nuevaConsulta();
 }
 $listadoMaterias = listadoMateriasParaConsulta();

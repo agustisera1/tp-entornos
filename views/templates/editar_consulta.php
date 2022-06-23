@@ -1,7 +1,9 @@
 <!-- FORMULARIO DE EDIT DE CONSULTA -->
 <?php
+session_start();
+
 require_once "./controllers/consultaController.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
     $alert = editarConsulta();
 }
 $consulta = obtenerConsultaPorId($vista[1]);

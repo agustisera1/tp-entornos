@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <header class="">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
@@ -24,6 +27,9 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
                 <!-- ITEMS A LA DERECHA DE LA BARRA DE NAVEGACION -->
+                <?php
+                    if(!isset($_SESSION["rol"])){
+                ?>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href=<?= "$URL/login"; ?>>Iniciar sesión</a>
@@ -32,6 +38,15 @@
                         <a class="nav-link" href=<?= "$URL/register"; ?>>Registrarse</a>
                     </li>
                 </ul>
+                <?php
+                } else {
+                ?>
+                    <p style="color: #fff; margin-bottom: 0; border-right: 1px solid #fff; padding: 10px;">Bienvenido <?=$_SESSION["nombre"]?> <?=$_SESSION["apellido"]?></p>
+                    <a href=<?= "$URL/logout/" ?> style="color: #fff; margin-bottom: 0; padding: 10px;">Cerrar sesión</a>
+                </ul>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </nav>

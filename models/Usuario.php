@@ -7,6 +7,7 @@ class Usuario
     private $apellido;
     private $email;
     private $password;
+    private $rol;
 
     public function setLegajo($legajo)
     {
@@ -56,5 +57,15 @@ class Usuario
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+    }
+
+    public function getRol()
+    {
+        return $this->rol;
     }
 }

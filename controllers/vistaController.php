@@ -26,7 +26,7 @@ function get_view()
 
 function validaRuta($path)
 {
-    $listaBlanca = ["login", "register", "contact", "sitemap", "nueva_consulta", "listado_consultas", "editar_consulta", "borrar_consulta"];
+    $listaBlanca = ["login", "logout", "register", "contact", "sitemap", "nueva_consulta", "listado_consultas", "editar_consulta", "borrar_consulta"];
     if (in_array($path, $listaBlanca)) {
         if (is_file("./views/templates/" . $path . ".php")) {
             $respuesta = "./views/templates/" . $path . ".php";
