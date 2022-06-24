@@ -13,7 +13,45 @@ function findAllConsultas()
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "SELECT * FROM consulta";
+        $query = "SELECT * FROM consulta WHERE fecha_hora_inicio > CURRENT_TIMESTAMP";
+
+        $rs = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($rs) > 0) {
+            foreach ($rs as $item) {
+                $consulta = new Consulta();
+                $consulta->setId($item['id']);
+                $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
+                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setModalidad($item['modalidad']);
+                $consulta->setLink($item['link']);
+                $consulta->setCupo($item['cupo']);
+                $consulta->setEstado($item['estado']);
+
+                $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
+                $consulta->setMateria(findMateriaById($item['materia_id']));
+
+                array_push($listadoConsultas, $consulta);
+            }
+        }
+        return $listadoConsultas;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+function ConsultasNoInscriptas($legajo)
+{
+    $listadoConsultas = array();
+
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "SELECT * FROM consulta WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo)";
 
         $rs = mysqli_query($conn, $query);
 
@@ -88,24 +126,27 @@ function findConsultasAlumno($legajo_alumno)
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "SELECT * FROM consulta WHERE profesor_legajo = $legajo_alumno";
+        $query = "SELECT * FROM inscripcion i INNER JOIN consulta c ON i.consulta_id = c.id WHERE alumno_id = $legajo_alumno and fecha_hora_inicio > CURRENT_TIMESTAMP and estado_id != 2";
 
         $rs = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($rs) > 0) {
             foreach ($rs as $item) {
+                $inscripcion = new Inscripcion();
                 $consulta = new Consulta();
+
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
                 $consulta->setFechaHoraFin($item['fecha_hora_fin']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
-                $consulta->setCupo($item['cupo']);
-                $consulta->setEstado($item['estado']);
 
                 $consulta->setMateria(findMateriaById($item['materia_id']));
 
-                array_push($listadoConsultas, $consulta);
+                $inscripcion->setEstado($item['estado_id']);
+                $inscripcion->setConsulta($consulta);
+
+                array_push($listadoConsultas, $inscripcion);
             }
         }
         return $listadoConsultas;
@@ -159,14 +200,13 @@ function updateConsulta($id, $fechaHoraInicio, $fechaHoraFin, $modalidad, $link,
 
 function findConsultaById($id)
 {
-    $consulta = null;
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
         $query = "SELECT * FROM consulta WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_bind_param($stmt, "s", $id);
         mysqli_stmt_execute($stmt);
 
         $rs = mysqli_stmt_get_result($stmt);
@@ -241,7 +281,7 @@ function verInscriptos($id)
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "SELECT legajo, nombre, apellido, email, fecha_inscripcion FROM consulta c INNER JOIN inscripcion i ON c.id = i.consulta_id INNER JOIN usuario u ON i.alumno_id = u.legajo WHERE c.id = $id";
+        $query = "SELECT legajo, nombre, apellido, email, fecha_inscripcion FROM consulta c INNER JOIN inscripcion i ON c.id = i.consulta_id INNER JOIN usuario u ON i.alumno_id = u.legajo WHERE c.id = $id AND estado_id != 2";
 
         $rs = mysqli_query($conn, $query);
 

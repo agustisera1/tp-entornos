@@ -10,6 +10,11 @@ if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Profesor"){
 
 require_once "./controllers/consultaController.php";
 $consultas = listadoConsultas();
+
+if($_SESSION["rol"] == "Alumno"){
+  $legajo = $_SESSION["legajo"];
+  $consultas = listadoConsultasNoInscriptas($legajo);
+}
 ?>
 
 <div class="container mt-4 mb-4">
@@ -24,7 +29,6 @@ $consultas = listadoConsultas();
           <th scope="col">Modalidad</th>
           <th scope="col">Fecha y hora incio</th>
           <th scope="col">Fecha y hora fin</th>
-          <th scope="col">Cupo</th>
           <th scope="col">Operaciones</th>
         </tr>
       </thead>
@@ -39,7 +43,6 @@ $consultas = listadoConsultas();
             <td><?= $item->getModalidad() ?></td>
             <td><?= $item->getFechaHoraInicio() ?></td>
             <td><?= $item->getFechaHoraFin() ?></td>
-            <td><?= $item->getCupo() ?></td>
             <td>
               <?php
               if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin"){
@@ -51,7 +54,7 @@ $consultas = listadoConsultas();
               <?php
               }elseif(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno"){
               ?>
-              <a class='btn btn-primary' id='asistir'>Asistir</a>
+              <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir'>Asistir</a>
               <?php
               }
               ?>

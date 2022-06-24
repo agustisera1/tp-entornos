@@ -16,6 +16,11 @@ function listadoConsultas()
     return findAllConsultas();
 }
 
+function listadoConsultasNoInscriptas($legajo)
+{
+    return ConsultasNoInscriptas($legajo);
+}
+
 function listadoConsultasProfesor()
 {
     $profesor_legajo = $_SESSION["legajo"];
