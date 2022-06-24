@@ -1,5 +1,9 @@
 <?php
 
+if(!isset($_SESSION)){ 
+    session_start(); 
+} 
+
 require_once "./models/Consulta.php";
 require_once "./models/Usuario.php";
 require_once "./models/Materia.php";
@@ -10,6 +14,18 @@ require_once "./database/usuarioDb.php";
 function listadoConsultas()
 {
     return findAllConsultas();
+}
+
+function listadoConsultasProfesor()
+{
+    $profesor_legajo = $_SESSION["legajo"];
+    return findConsultasProfesor($profesor_legajo);
+}
+
+function listadoConsultasAlumno()
+{
+    $legajo_alumno = $_SESSION["legajo"];
+    return findConsultasAlumno($legajo_alumno);
 }
 
 function nuevaConsulta()
@@ -63,4 +79,16 @@ function listadoMateriasParaConsulta()
 function listadoProfesoresParaConsulta()
 {
     return findAllProfesores();
+}
+
+function bloquearConsulta($id)
+{
+    bloquearConsultaId($id);
+
+    header("Location: mis_consultas");
+}
+
+function inscriptosConsulta($id)
+{
+    return verInscriptos($id);
 }

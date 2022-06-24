@@ -16,9 +16,15 @@ session_start();
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- ITEMS A LA IZQUIERDA DE LA BARRA DE NAVEGACION -->
+                
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= "$URL/listado_consultas"; ?>">Consultas</a>
+                        <a class="nav-link" href="<?= "$URL/listado_consultas"; ?>">Listado consultas</a>
+                    </li>
+
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= "$URL/mis_consultas"; ?>">Mis consultas</a>
                     </li>
                 </ul>
                 <!-- FORMULARIO DE BUSQUEDA -->

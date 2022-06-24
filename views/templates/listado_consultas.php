@@ -1,5 +1,12 @@
 <!-- TABLA DE CONSULTAS -->
 <?php
+if(!isset($_SESSION)){
+  session_start();
+}
+
+if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Profesor"){
+  header("Location: mis_consultas");
+}
 
 require_once "./controllers/consultaController.php";
 $consultas = listadoConsultas();
@@ -7,6 +14,7 @@ $consultas = listadoConsultas();
 
 <div class="container mt-4 mb-4">
   <div class="row">
+    <h3 class="text-center">Listado de consultas</h3>
     <table class="table">
       <thead>
         <tr>

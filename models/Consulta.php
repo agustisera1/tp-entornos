@@ -10,6 +10,7 @@ class Consulta
     private $cupo;
     private $profesor;
     private $materia;
+    private $estado;
 
     public function getId()
     {
@@ -86,5 +87,15 @@ class Consulta
     public function setMateria($materia)
     {
         $this->materia = $materia;
+    }
+    
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
     }
 }

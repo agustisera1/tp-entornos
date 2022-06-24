@@ -21,6 +21,7 @@ function registro()
   $password = md5($password);
   $msg = signup($legajo, $nombre, $apellido, $email, $password);
 
+  $_SESSION["legajo"] = $legajo;
   $_SESSION["nombre"] = $nombre;
   $_SESSION["apellido"] = $apellido;
   $_SESSION["rol"] = "Alumno";
@@ -43,6 +44,7 @@ function login()
   if($usuario == 0) {
     echo "<p class=\"alert alert-danger\" style=\"width: 50%; margin: auto;\">Legajo o contraseña incorrectos</p>";
   } else {
+    $_SESSION["legajo"] = $usuario->getLegajo();
     $_SESSION["nombre"] = $usuario->getNombre();   
     $_SESSION["apellido"] = $usuario->getApellido();
     $_SESSION["rol"] = $usuario->getRol();
