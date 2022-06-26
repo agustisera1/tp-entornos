@@ -2,8 +2,8 @@
 function databaseConnection()
 {
     $server = "localhost";
-    $username = "fiido";
-    $password = "admin";
+    $username = "root";
+    $password = "";
     $dbname = "gestion-consultas-db";
 
     $conn = mysqli_connect($server, $username, $password, $dbname) or die("Connection failed");

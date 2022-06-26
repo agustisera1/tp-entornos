@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`materia` (
   `nombre` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -69,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`consulta` (
     FOREIGN KEY (`materia_id`)
     REFERENCES `gestion-consultas-db`.`materia` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 17
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -90,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`inscripcion` (
     FOREIGN KEY (`alumno_id`)
     REFERENCES `gestion-consultas-db`.`usuario` (`legajo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -102,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`rol` (
   `descripcion` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -126,3 +122,24 @@ DEFAULT CHARACTER SET = utf8mb4;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO materia (`nombre`) VALUES ("Fisica 2");
+INSERT INTO materia (`nombre`) VALUES ("Fisica");
+INSERT INTO materia (`nombre`) VALUES ("Analisis Matematico 2");
+INSERT INTO materia (`nombre`) VALUES ("Analisis Matematico");
+INSERT INTO materia (`nombre`) VALUES ("Analisis de sistemas");
+INSERT INTO materia (`nombre`) VALUES ("Diseño de sistemas");
+INSERT INTO materia (`nombre`) VALUES ("Administracion de recursos");
+INSERT INTO materia (`nombre`) VALUES ("Quimica");
+INSERT INTO materia (`nombre`) VALUES ("Algebra y Geometria Analitica");
+INSERT INTO materia (`nombre`) VALUES ("Sistemas Operativos");
+INSERT INTO materia (`nombre`) VALUES ("Matematica Superior");
+
+INSERT INTO rol(`descripcion`) VALUES ("Admin"), ("Alumno"), ("Profesor");
+
+INSERT INTO usuario (`legajo`, `nombre`, `apellido`, `email`, `password`) VALUES (11111, "Admin", "Admin", "admin@gmail.com", "21232f297a57a5a743894a0e4a801fc3" ); 
+INSERT INTO usuario (`legajo`, `nombre`, `apellido`, `email`, `password`) VALUES (11222, "Alumno", "Alumno", "alumno@gmail.com", "c6865cf98b133f1f3de596a4a2894630");
+INSERT INTO usuario (`legajo`, `nombre`, `apellido`, `email`, `password`) VALUES (11331, "Profesor", "Profesor", "profesor@gmail.com", "793741d54b00253006453742ad4ed534");
+INSERT INTO usuario (`legajo`, `nombre`, `apellido`, `email`, `password`) VALUES (11332, "Profesor2", "Profesor2", "profesor2@gmail.com", "793741d54b00253006453742ad4ed534");
+
+INSERT INTO usuario_rol (`usuario_legajo`, `rol_id`) VALUES (11111, 1), (11222, 2), (11331, 3), (11332, 3);

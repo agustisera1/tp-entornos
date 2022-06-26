@@ -1,17 +1,17 @@
 <!-- TABLA DE CONSULTAS -->
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
   session_start();
 }
 
-if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Profesor"){
+if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Profesor") {
   header("Location: mis_consultas");
 }
 
 require_once "./controllers/consultaController.php";
 $consultas = listadoConsultas();
 
-if($_SESSION["rol"] == "Alumno"){
+if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
   $legajo = $_SESSION["legajo"];
   $consultas = listadoConsultasNoInscriptas($legajo);
 }
@@ -45,16 +45,16 @@ if($_SESSION["rol"] == "Alumno"){
             <td><?= $item->getFechaHoraFin() ?></td>
             <td>
               <?php
-              if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin"){
+              if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
               ?>
-              <div class='btn-group'>
-                <a href=<?= "$URL/editar_consulta/" . $item->getId() ?> type='button' class='btn btn-info' id='editar'>Editar</a>
-                <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> type='button' class='btn btn-danger' id='eliminar'>Eliminar</a>
-              </div>
+                <div class='btn-group'>
+                  <a href=<?= "$URL/editar_consulta/" . $item->getId() ?> type='button' class='btn btn-info' id='editar'>Editar</a>
+                  <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> type='button' class='btn btn-danger' id='eliminar'>Eliminar</a>
+                </div>
               <?php
-              }elseif(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno"){
+              } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
               ?>
-              <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir'>Asistir</a>
+                <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir'>Asistir</a>
               <?php
               }
               ?>
@@ -67,13 +67,13 @@ if($_SESSION["rol"] == "Alumno"){
     </table>
 
     <?php
-    if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin"){
+    if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
     ?>
-    <div class="row justify-content-center">
-      <div class="col-2">
-        <a href=<?= "$URL/nueva_consulta/" ?> class='btn btn-primary'>Agregar nueva consulta</a>
+      <div class="row justify-content-center">
+        <div class="col-2">
+          <a href=<?= "$URL/nueva_consulta/" ?> class='btn btn-primary'>Agregar nueva consulta</a>
+        </div>
       </div>
-    </div>
     <?php
     }
     ?>
