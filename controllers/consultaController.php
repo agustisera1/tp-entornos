@@ -13,9 +13,6 @@ require_once "./database/usuarioDb.php";
 
 require_once('./vendor/autoload.php');
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 
@@ -142,4 +139,6 @@ function leerExcel()
         // mysqli_stmt_bind_param toma valores por referencia, por lo que hay que pasarle las variables y no el objeto
         saveConsulta($fechaHoraInicioFormateada, $fechaHoraFinFormateada, $modalidad, $link, $materia_id, $profesor_legajo, $cupo);
     }
+
+    return array('tipo' => 'success', 'mensaje' => 'Consultas importadas con éxito.');
 }
