@@ -17,7 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema gestion-consultas-db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `gestion-consultas-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE SCHEMA IF NOT EXISTS `gestion-consultas-db` DEFAULT CHARACTER SET utf8mb4 ;
 USE `gestion-consultas-db` ;
 
 -- -----------------------------------------------------
@@ -31,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`usuario` (
   `password` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`legajo`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -44,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`materia` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 12
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -64,8 +62,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`consulta` (
   `motivo_bloqueo` VARCHAR(100) NULL DEFAULT NULL,
   `fecha_hora_reprogramada` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `profesor_legajo` (`profesor_legajo` ASC) VISIBLE,
-  INDEX `materia_id` (`materia_id` ASC) VISIBLE,
   CONSTRAINT `consulta_ibfk_1`
     FOREIGN KEY (`profesor_legajo`)
     REFERENCES `gestion-consultas-db`.`usuario` (`legajo`),
@@ -74,8 +70,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`consulta` (
     REFERENCES `gestion-consultas-db`.`materia` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 17
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -88,8 +83,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`inscripcion` (
   `fecha_inscripcion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `estado_id` TINYINT(1) NULL DEFAULT '0',
   PRIMARY KEY (`nro`),
-  INDEX `consulta_id` (`consulta_id` ASC) VISIBLE,
-  INDEX `alumno_id` (`alumno_id` ASC) VISIBLE,
   CONSTRAINT `inscripcion_ibfk_1`
     FOREIGN KEY (`consulta_id`)
     REFERENCES `gestion-consultas-db`.`consulta` (`id`),
@@ -98,8 +91,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`inscripcion` (
     REFERENCES `gestion-consultas-db`.`usuario` (`legajo`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 14
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -111,8 +103,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`rol` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -122,7 +113,6 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`usuario_rol` (
   `usuario_legajo` INT NOT NULL,
   `rol_id` INT NOT NULL,
   PRIMARY KEY (`usuario_legajo`, `rol_id`),
-  INDEX `rol_id` (`rol_id` ASC) VISIBLE,
   CONSTRAINT `usuario_rol_ibfk_1`
     FOREIGN KEY (`usuario_legajo`)
     REFERENCES `gestion-consultas-db`.`usuario` (`legajo`),
@@ -130,8 +120,7 @@ CREATE TABLE IF NOT EXISTS `gestion-consultas-db`.`usuario_rol` (
     FOREIGN KEY (`rol_id`)
     REFERENCES `gestion-consultas-db`.`rol` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8mb4;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
