@@ -11,6 +11,7 @@ class Consulta
     private $profesor;
     private $materia;
     private $estado;
+    private $motivoBloqueo;
 
     public function getId()
     {
@@ -97,5 +98,15 @@ class Consulta
     public function setEstado($estado)
     {
         $this->estado = $estado;
+    }
+    
+    public function getMotivoBloqueo()
+    {
+        return $this->motivoBloqueo;
+    }
+
+    public function setMotivoBloqueo($motivoBloqueo)
+    {
+        $this->motivoBloqueo = $motivoBloqueo;
     }
 }

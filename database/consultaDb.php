@@ -65,6 +65,7 @@ function ConsultasNoInscriptas($legajo)
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
                 $consulta->setEstado($item['estado']);
+                $consulta->setMotivoBloqueo($item['motivo_bloqueo']);
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
@@ -255,15 +256,15 @@ function deleteConsultaById($id)
     }
 }
 
-function bloquearConsultaId($id)
+function bloquearConsultaId($motivo, $id)
 {
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "UPDATE consulta SET estado = 0 WHERE id = ?";
+        $query = "UPDATE consulta SET estado = 0, motivo_bloqueo = ? WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_bind_param($stmt, "si", $motivo, $id);
         mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();

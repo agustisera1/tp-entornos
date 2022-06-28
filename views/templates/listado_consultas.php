@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
+
 <div class="container mt-4 mb-4">
   <div class="row">
     <h3 class="text-center">Listado de consultas</h3>
@@ -52,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <tbody>
           <?php
           foreach ($consultas as $item) {
+            $motivoBloqueo = $item->getMotivoBloqueo();
           ?>
             <tr>
               <td><?= $item->getId() ?></td>
@@ -69,9 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> type='button' class='btn btn-danger' id='eliminar'>Eliminar</a>
                   </div>
                 <?php
-                } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
+                } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno" and !isset($motivoBloqueo)) {
                 ?>
                   <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir'>Asistir</a>
+                <?php
+                } else {
+                ?>
+                  <a class="btn btn-primary disabled" type="button" disabled>Bloqueada</a>
                 <?php
                 }
                 ?>
