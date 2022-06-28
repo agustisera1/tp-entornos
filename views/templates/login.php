@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="password" class="form-control" id="inputPassword" aria-describedby="" name="password">
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            <button type="submit" class="btn btn-primary" id="iniciarSesion">Iniciar sesión</button>
                         </div>
                     </form>
                 </div>

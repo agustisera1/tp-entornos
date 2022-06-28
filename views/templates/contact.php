@@ -19,15 +19,11 @@
                             <input type="text" class="form-control" id="inputAsunto" aria-describedby="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="inputAsunto" class="form-label">ASUNTO</label>
-                            <input type="text" class="form-control" id="inputAsunto" aria-describedby="">
-                        </div>
-                        <div class="form-group mb-3">
                             <label for="inputConsulta" class="form-label">CONSULTA</label>
                             <textarea class="form-control" id="inputConsulta" rows="3"></textarea>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn btn-primary" id="inputEnviar">Enviar</button>
                         </div>
                     </form>
                 </div>

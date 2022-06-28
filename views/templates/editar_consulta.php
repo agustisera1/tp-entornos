@@ -1,6 +1,8 @@
 <!-- FORMULARIO DE EDIT DE CONSULTA -->
 <?php
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 require_once "./controllers/consultaController.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
@@ -21,7 +23,7 @@ $listadoProfesores = listadoProfesoresParaConsulta();
                         <input type="hidden" name="id" value="<?= $consulta->getId(); ?>">
                         <div class="form-group mb-3">
                             <label for="inputFechaHora" class="form-label">Fecha y hora</label>
-                            <input type="datetime-local" class="form-control" id="inputFechaHora" name="fechaHoraInicio" aria-describedby="fechaHoraHelp" value="<?= $consulta->getFechaHoraInicio() ?>">
+                            <input type="datetime-local" class="form-control" id="inputFechaHoraInicio" name="fechaHoraInicio" aria-describedby="fechaHoraHelp" value="<?= $consulta->getFechaHoraInicio() ?>">
                         </div>
                         <div class="form-group mb-3">
                             <label for="inputFechaHoraFin" class="form-label">Fecha y hora fin</label>
@@ -83,7 +85,7 @@ $listadoProfesores = listadoProfesoresParaConsulta();
                             </select>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <button type="submit" class="btn btn-primary" id="inputGuardarCambios">Guardar cambios</button>
                         </div>
                     </form>
                 </div>
@@ -91,3 +93,15 @@ $listadoProfesores = listadoProfesoresParaConsulta();
         </div>
     </div>
 </div>
+<script>
+    let guardarCambios = document.getElementById("inputGuardarCambios")
+    let fechaHoraInicio = document.getElementById("inputFechaHoraInicio")
+    let fechaHoraFin = document.getElementById("inputFechaHoraFin")
+
+    guardarCambios.addEventListener("click", ($event) => {
+    if(fechaHoraInicio.value == "" || fechaHoraFin.value == "") {
+        $event.preventDefault()
+        alert("Faltan rellenar campos")
+    }
+  })
+</script>

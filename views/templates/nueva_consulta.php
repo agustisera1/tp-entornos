@@ -57,7 +57,7 @@ $listadoProfesores = listadoProfesoresParaConsulta();
                                 <div class="form-group mb-3">
                                     <label for="materia" class="form-label">Materia</label>
                                     <select class="form-select" aria-label="Selecciona una materia" id="materia" name="materia">
-                                        <option selected>Selecciona una materia</option>
+                                        <option selected>Seleccione una materia</option>
                                         <?php
                                         foreach ($listadoMaterias as $materia) {
                                         ?>
@@ -81,7 +81,7 @@ $listadoProfesores = listadoProfesoresParaConsulta();
                                     </select>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3">
-                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                    <button type="submit" class="btn btn-primary" id="agregar">Agregar</button>
                                 </div>
                             </form>
                         </div>

@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                            <button type="submit" class="btn btn-primary" id="register">Registrarse</button>
                         </div>
                     </form>
                 </div>
