@@ -19,6 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSI
                             <label for="inputMotivo" class="form-label">Motivo</label>
                             <input type="text" class="form-control" id="inputMotivo" aria-describedby="" name="motivo">
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="inputFechaHoraInicio" class="form-label">Fecha y hora inicio</label>
+                            <input type="datetime-local" class="form-control" id="inputFechaHoraInicio" name="fechaHoraInicio" aria-describedby="fechaHoraHelp">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="inputFechaHoraFin" class="form-label">Fecha y hora fin</label>
+                            <input type="datetime-local" class="form-control" id="inputFechaHoraFin" name="fechaHoraFin" aria-describedby="fechaHoraHelp">
+                        </div>
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-primary" id="registrarBloqueo">Registrar bloqueo</button>
                         </div>
