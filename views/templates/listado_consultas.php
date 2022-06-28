@@ -35,7 +35,8 @@ if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
       <tbody>
         <?php
         foreach ($consultas as $item) {
-        ?>
+          $motivoBloqueo = $item->getMotivoBloqueo();
+          ?>
           <tr>
             <td><?= $item->getId() ?></td>
             <td><?= $item->getMateria()->getNombre(); ?></td>
@@ -52,9 +53,13 @@ if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
                   <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> type='button' class='btn btn-danger' id='eliminar'>Eliminar</a>
                 </div>
               <?php
-              } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno") {
+              } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno" and !isset($motivoBloqueo)) {
               ?>
-                <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir'>Asistir</a>
+                <a href=<?= "$URL/asistir/" . $item->getId() ?> class='btn btn-primary' id='asistir' >Asistir</a>
+              <?php
+              } else {
+                ?>
+                <a class="btn btn-primary disabled" type="button" disabled>Bloqueada</a>
               <?php
               }
               ?>

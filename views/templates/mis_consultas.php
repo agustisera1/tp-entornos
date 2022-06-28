@@ -67,7 +67,7 @@ if($_SESSION["rol"] == "Profesor"){
               <div class='btn-group'>
                 <?php if($item->getEstado() == 1){
                   ?>
-                  <a href=<?= "$URL/bloquear_consulta/" . $item->getId() ?> type='button' class='btn btn-info' id='bloquear'>Bloquear</a>
+                  <a href=<?= "$URL/motivo_bloqueo/" . $item->getId() ?> type='button' class='btn btn-info' id='bloquear'>Bloquear</a>
                 <?php
                 }
                 ?>
