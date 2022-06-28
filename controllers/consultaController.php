@@ -142,3 +142,18 @@ function leerExcel()
 
     return array('tipo' => 'success', 'mensaje' => 'Consultas importadas con éxito.');
 }
+
+function buscarConsulta()
+{
+
+    $busqueda = $_POST['search'];
+
+    return searchConsulta($busqueda);
+}
+
+function buscarConsultasNoInscriptas()
+{
+    $busqueda = $_POST['search'];
+    $legajo_alumno = $_SESSION["legajo"];
+    return searchConsultaNoInscriptas($busqueda, $legajo_alumno);
+}

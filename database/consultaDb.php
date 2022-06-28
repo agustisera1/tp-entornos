@@ -309,3 +309,77 @@ function verInscriptos($id)
         if (isset($conn)) mysqli_close($conn);
     }
 }
+
+function searchConsulta($busqueda) {
+    $listadoConsultas = array();
+
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "SELECT * FROM consulta INNER JOIN materia ON consulta.materia_id=materia.id INNER JOIN usuario ON consulta.profesor_legajo=usuario.legajo WHERE materia.nombre LIKE '%" . $busqueda . "%' OR usuario.nombre LIKE '%" . $busqueda . "%' OR usuario.apellido LIKE '%" . $busqueda . "%'";
+
+        $rs = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($rs) > 0) {
+            foreach ($rs as $item) {
+                $consulta = new Consulta();
+                $consulta->setId($item['id']);
+                $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
+                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setModalidad($item['modalidad']);
+                $consulta->setLink($item['link']);
+                $consulta->setCupo($item['cupo']);
+                $consulta->setEstado($item['estado']);
+
+                $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
+                $consulta->setMateria(findMateriaById($item['materia_id']));
+
+                array_push($listadoConsultas, $consulta);
+            }
+        }
+        return $listadoConsultas;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
+function searchConsultaNoInscriptas($busqueda, $legajo) {
+    $listadoConsultas = array();
+
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "SELECT c.id, c.fecha_hora_inicio, c.fecha_hora_fin, c.modalidad, c.link, c.cupo, c.estado, c.profesor_legajo, c.materia_id FROM consulta AS c INNER JOIN materia AS m ON c.materia_id=m.id INNER JOIN usuario AS u ON c.profesor_legajo=u.legajo WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND (m.nombre LIKE '%" . $busqueda . "%' OR u.nombre LIKE '%" . $busqueda . "%' OR u.apellido LIKE '%" . $busqueda . "%') AND c.id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo)";
+
+        $rs = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($rs) > 0) {
+            foreach ($rs as $item) {
+                $consulta = new Consulta();
+                $consulta->setId($item['id']);
+                $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
+                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setModalidad($item['modalidad']);
+                $consulta->setLink($item['link']);
+                $consulta->setCupo($item['cupo']);
+                $consulta->setEstado($item['estado']);
+
+                $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
+                $consulta->setMateria(findMateriaById($item['materia_id']));
+
+                array_push($listadoConsultas, $consulta);
+            }
+        }
+        return $listadoConsultas;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } finally {
+        if (isset($rs)) mysqli_free_result($rs);
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
