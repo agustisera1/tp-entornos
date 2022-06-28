@@ -94,7 +94,10 @@ function listadoProfesoresParaConsulta()
 function bloquearConsulta($id)
 {
     $motivo = $_POST["motivo"];
-    bloquearConsultaId($motivo, $id);
+    $fechaHoraInicio = $_POST["fechaHoraInicio"];
+    $fechaHoraFin = $_POST["fechaHoraFin"];
+    
+    bloquearConsultaId($motivo, $fechaHoraInicio, $fechaHoraFin, $id);
 
     header("Location: ../mis_consultas");
 }

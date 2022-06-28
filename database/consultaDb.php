@@ -256,15 +256,15 @@ function deleteConsultaById($id)
     }
 }
 
-function bloquearConsultaId($motivo, $id)
+function bloquearConsultaId($motivo, $fechaHoraInicio, $fechaHoraFin, $id)
 {
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "UPDATE consulta SET estado = 0, motivo_bloqueo = ? WHERE id = ?";
+        $query = "UPDATE consulta SET estado = 0, motivo_bloqueo = ?, fecha_hora_inicio = ?, fecha_hora_fin = ? WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "si", $motivo, $id);
+        mysqli_stmt_bind_param($stmt, "sssi", $motivo, $fechaHoraInicio, $fechaHoraFin, $id);
         mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
