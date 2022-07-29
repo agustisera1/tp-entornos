@@ -90,20 +90,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         removeError(inputFields);
 
-        let valid = true;
-        let validRequired = validateRequiredFields(inputFields);
+        let valid = validateRequiredFields(inputFields);
 
-        if (valid && !validateLegajo(inputLegajo.value)) {
+        if (inputLegajo.value !== '' && !validateLegajo(inputLegajo.value)) {
             showError(inputLegajo, "El legajo es invalido");
             valid = false;
         }
 
-        if (valid && !validatePassword(inputPassword.value)) {
+        if (inputPassword.value !== '' && !validatePassword(inputPassword.value)) {
             showError(inputPassword, "Contraseña invalida");
             valid = false;
         }
 
-        if (valid && !validateConfirmPassword(inputPassword.value, inputConfirmPassword.value)) {
+        if (inputConfirmPassword.value !== '' && !validateConfirmPassword(inputPassword.value, inputConfirmPassword.value)) {
             showError(inputConfirmPassword, "Las contraseñas no coinciden");
             valid = false;
         }
