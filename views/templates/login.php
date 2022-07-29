@@ -11,15 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form action=<?= "$URL/login" ?> method="POST" class="col-12">
+                    <form action=<?= "$URL/login" ?> method="POST" class="col-12" id="formInicioSesion">
                         <div class="form-group mb-3">
                             <label for="inputLegajo" class="form-label">Legajo</label>
-                            <input type="text" class="form-control" id="inputLegajo" aria-describedby="legajoHelp" name="legajo">
-                            <!-- <div id="legajoHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            <input type="text" class="form-control" id="inputLegajo" aria-describedby="legajoHelp" name="legajo" placeholder="Ingresar legajo">
+                            <small class="text-danger"></small>
                         </div>
                         <div class="form-group mb-3">
                             <label for="inputPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword" aria-describedby="" name="password">
+                            <input type="password" class="form-control" id="inputPassword" aria-describedby="" name="password" placeholder="Ingresar contraseña">
+                            <small class="text-danger"></small>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-primary" id="iniciarSesion">Iniciar sesión</button>
@@ -30,3 +31,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
+
+<script>
+    const formInicioSesion = document.getElementById("formInicioSesion");
+    const inputLegajo = document.getElementById("inputLegajo");
+    const inputPassword = document.getElementById("inputPassword");
+
+    formInicioSesion.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let inputFields = [{
+            field: inputLegajo,
+            message: "El legajo es requerido"
+        }, {
+            field: inputPassword,
+            message: "La contraseña es requerida"
+        }];
+
+        removeError(inputFields);
+
+        let valid = validateRequiredFields(inputFields);
+
+        if (valid) {
+            formInicioSesion.submit();
+        }
+    })
+</script>
