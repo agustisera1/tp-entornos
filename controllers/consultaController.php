@@ -47,6 +47,18 @@ function nuevaConsulta()
     $materia_id = $_POST['materia'];
     $profesor_legajo = $_POST['profesor'];
     $cupo = 0; // cambiar esto
+    
+    $fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+    $fechaHoraInicioSegundos = strtotime($fechaHoraInicio);
+    $fechaHoraFinSegundos = strtotime($fechaHoraFin);
+    
+    if($fecha_actual > $fechaHoraInicioSegundos) {
+        return array('tipo' => 'danger', 'mensaje' => 'La fecha de inicio de la consulta debe ser mayor a la actual.');;
+    }
+    
+    if($fechaHoraInicioSegundos > $fechaHoraFinSegundos) {
+        return array('tipo' => 'danger', 'mensaje' => 'La fecha de inicio de la consulta debe ser menor a la fecha y hora de finalización de la consulta.');;
+    }
 
     // mysqli_stmt_bind_param toma valores por referencia, por lo que hay que pasarle las variables y no el objeto
     saveConsulta($fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia_id, $profesor_legajo, $cupo);
