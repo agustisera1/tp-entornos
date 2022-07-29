@@ -8,6 +8,7 @@ class Consulta
     private $modalidad;
     private $link;
     private $cupo;
+    private $cupoDisponible;
     private $profesor;
     private $materia;
     private $estado;
@@ -108,5 +109,15 @@ class Consulta
     public function setMotivoBloqueo($motivoBloqueo)
     {
         $this->motivoBloqueo = $motivoBloqueo;
+    }
+
+    public function getCupoDisponible()
+    {
+        return $this->cupoDisponible;
+    }
+
+    public function setCupoDisponible($listadoInscriptos)
+    {
+        $this->cupoDisponible = $this->cupo - count($listadoInscriptos);
     }
 }
