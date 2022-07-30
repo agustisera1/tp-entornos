@@ -7,10 +7,9 @@
             <!-- Grid row -->
             <div class="row mt-3">
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto my-auto">
+                <div class="col-12 mx-auto mb-4 mt-0 text-center">
                     <!-- Content -->
-                    <img src=<?= "$URL/views/static/img/logo-utn-footer.png" ?> class="img-fluid" alt="Logo UTN">
-
+                    <img height="100px" width="auto" src=<?= "$URL/views/static/img/logo-utn-footer.png" ?> alt="Logo UTN">
                 </div>
                 <!-- Grid column -->
 
@@ -64,7 +63,18 @@
                     <p><i class="fas fa-phone me-3"></i>0341 - 4481871</p>
                     <!-- <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p> -->
                 </div>
-                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Institucional
+                    </h6>
+                    <p>
+                        <a href="https://www.frro.utn.edu.ar/contenido.php?cont=659&subc=69" class="text-reset" target="_blank">Misión - Visión - Valores</a>
+                    </p>
+                    <p>
+                        <a href="https://www.frro.utn.edu.ar/contenido.php?cont=342&subc=16" class="text-reset" target="_blank">Autoridades</a>
+                    </p>
+                </div>
             </div>
             <!-- Grid row -->
         </div>
