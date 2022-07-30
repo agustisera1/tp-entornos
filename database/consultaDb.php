@@ -31,6 +31,8 @@ function findAllConsultas()
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
 
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
+
                 array_push($listadoConsultas, $consulta);
             }
         }
@@ -70,6 +72,8 @@ function ConsultasNoInscriptas($legajo)
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
 
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
+
                 array_push($listadoConsultas, $consulta);
             }
         }
@@ -106,6 +110,7 @@ function findConsultasProfesor($profesor_legajo)
                 $consulta->setEstado($item['estado']);
 
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -225,6 +230,7 @@ function findConsultaById($id)
 
             $consulta->setProfesor(findUsuarioByLegajo($c['profesor_legajo']));
             $consulta->setMateria(findMateriaById($c['materia_id']));
+            $consulta->setCupoDisponible(verInscriptos($c['id']));
         }
 
         return $consulta;
@@ -311,7 +317,8 @@ function verInscriptos($id)
     }
 }
 
-function searchConsulta($busqueda) {
+function searchConsulta($busqueda)
+{
     $listadoConsultas = array();
 
     try {
@@ -334,6 +341,7 @@ function searchConsulta($busqueda) {
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -348,7 +356,8 @@ function searchConsulta($busqueda) {
     }
 }
 
-function searchConsultaNoInscriptas($busqueda, $legajo) {
+function searchConsultaNoInscriptas($busqueda, $legajo)
+{
     $listadoConsultas = array();
 
     try {
@@ -371,6 +380,7 @@ function searchConsultaNoInscriptas($busqueda, $legajo) {
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }

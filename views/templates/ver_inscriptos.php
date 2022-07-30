@@ -17,12 +17,13 @@ $consulta->setCupoDisponible($inscriptos);
 <div class="container mt-4 mb-4">
   <div class="row">
     <!-- <a href="../mis_consultas" class="btn btn-primary" style="width: 7%;">Volver</a> -->
-
+    <h3 class="card-title text-center">
+      Consulta
+    </h3>
     <section class="card shadow-sm">
+
       <div class="card-body">
-        <h3 class="card-title text-center">
-          Consulta
-        </h3>
+
         <div class="row row-cols-md-2 row-cols-sm-1">
           <div class="col">
             <p>Profesor: <span><?= $consulta->getProfesor()->getNombre() . ' ' . $consulta->getProfesor()->getApellido() ?></span></p>

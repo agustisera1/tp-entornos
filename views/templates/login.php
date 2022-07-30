@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container p-4">
     <h3 class="text-center">Iniciar sesion</h3>
     <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">
                     <form action=<?= "$URL/login" ?> method="POST" class="col-12" id="formInicioSesion">

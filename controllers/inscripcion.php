@@ -15,7 +15,11 @@ function asistir($consultaId)
 {
   $legajo = $_SESSION['legajo'];
 
-  crearInscripcionConsulta($consultaId, $legajo);
+  $consulta = findConsultaById($consultaId);
+
+  if ($consulta->getCupoDisponible() <= 0) {
+    crearInscripcionConsulta($consultaId, $legajo);
+  }
 }
 
 function confirmarInscripcion($consultaId)
