@@ -14,16 +14,31 @@ $consulta = obtenerConsultaPorId($id);
 $inscriptos = inscriptosConsulta($id);
 $consulta->setCupoDisponible($inscriptos);
 ?>
-<div class="container mt-4 mb-4">
+<section class="border-bottom title-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="pt-4 pb-3 m-0">
+          CONSULTA
+        </h2>
+      </div>
+      <div class="col d-flex justify-content-end pt-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item "><a href=<?= "$URL/"; ?>>Inicio</a></li>
+            <li class="breadcrumb-item"><a href=<?= "$URL/listado_consultas"; ?>>Listado de Consultas</a></li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">Ver Inscriptos</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container mt-2 mb-4">
   <div class="row">
-    <!-- <a href="../mis_consultas" class="btn btn-primary" style="width: 7%;">Volver</a> -->
-    <h3 class="card-title text-center">
-      Consulta
-    </h3>
     <section class="card shadow-sm">
-
       <div class="card-body">
-
         <div class="row row-cols-md-2 row-cols-sm-1">
           <div class="col">
             <p>Profesor: <span><?= $consulta->getProfesor()->getNombre() . ' ' . $consulta->getProfesor()->getApellido() ?></span></p>

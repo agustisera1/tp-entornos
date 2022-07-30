@@ -25,12 +25,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
+<section class="border-bottom title-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="pt-4 pb-3 m-0">
+          CONSULTAS
+        </h2>
+      </div>
+      <div class="col d-flex justify-content-end pt-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item "><a href=<?= "$URL/"; ?>>Inicio</a></li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">Listado de Consultas</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="container mt-4 mb-4">
   <div class="row">
-    <h3 class="text-center">Listado de consultas</h3>
-    <div class="card my-3">
+    <div class="card">
       <div class="card-body">
         <section class="my-3">
           <form action=<?= "$URL/listado_consultas" ?> method="POST" class="d-flex">
