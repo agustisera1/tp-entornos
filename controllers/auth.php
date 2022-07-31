@@ -60,13 +60,14 @@ function login()
   $usuario = inicio($legajo, $password);
 
   if($usuario == 0) {
-    echo "<p class=\"alert alert-danger\" style=\"width: 50%; margin: auto;\">Legajo o contraseña incorrectos</p>";
+    return array('tipo' => 'danger', 'mensaje' => 'Legajo o contraseña incorrectos.');
   } else {
     $_SESSION["legajo"] = $usuario->getLegajo();
     $_SESSION["nombre"] = $usuario->getNombre();   
     $_SESSION["apellido"] = $usuario->getApellido();
     $_SESSION["rol"] = $usuario->getRol();
     
+    return null;
     return header("Location: listado_consultas");
   }
 }
