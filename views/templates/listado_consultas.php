@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </section>
 
-<div class="container mt-4 mb-4">
+<div class="container my-4">
   <div class="row">
     <div class="card mb-3">
       <div class="card-body">

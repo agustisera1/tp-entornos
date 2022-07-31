@@ -1,8 +1,8 @@
 <?php
 
-if(!isset($_SESSION)){ 
-    session_start(); 
-} 
+if (!isset($_SESSION)) {
+  session_start();
+}
 
 
 require_once "./models/Consulta.php";
@@ -17,7 +17,7 @@ function registro()
   $apellido = $_POST['apellido'];
   $email = $_POST['email'];
   $password = $_POST['password'];
-  
+
   $password = md5($password);
   $msg = signup($legajo, $nombre, $apellido, $email, $password);
 
@@ -26,7 +26,7 @@ function registro()
   $_SESSION["apellido"] = $apellido;
   $_SESSION["rol"] = "Alumno";
 
-  if(!is_null($msg)) {
+  if (!is_null($msg)) {
     return $msg;
   }
 
@@ -40,33 +40,56 @@ function registroProfesor()
   $apellido = $_POST['apellido'];
   $email = $_POST['email'];
   $password = $_POST['password'];
-  
+
   $password = md5($password);
   $msg = signupProfesor($legajo, $nombre, $apellido, $email, $password);
 
-  if(!is_null($msg)) {
+  if (!is_null($msg)) {
     return $msg;
   }
 
   return header("Location: listado_consultas");
+  exit();
 }
 
 function login()
 {
   $legajo = $_POST['legajo'];
   $password = $_POST['password'];
-  
+
   $password = md5($password);
   $usuario = inicio($legajo, $password);
 
-  if($usuario == 0) {
+  if ($usuario == 0) {
     return array('tipo' => 'danger', 'mensaje' => 'Legajo o contraseña incorrectos.');
   } else {
     $_SESSION["legajo"] = $usuario->getLegajo();
-    $_SESSION["nombre"] = $usuario->getNombre();   
+    $_SESSION["nombre"] = $usuario->getNombre();
     $_SESSION["apellido"] = $usuario->getApellido();
     $_SESSION["rol"] = $usuario->getRol();
-    
-    return null;
+
+    header("Location: listado_consultas");
+    exit();
   }
+}
+
+function cambiarPassword()
+{
+  $legajo = $_SESSION['legajo'];
+
+  $newPassword = $_POST['newPassword'];
+  $password = $_POST['password'];
+
+  $password = md5($password);
+  $newPassword = md5($newPassword);
+
+  if ($password === $newPassword) {
+    return array('tipo' => 'danger', 'mensaje' => 'La contraseña actual y la nueva son identicas.');
+  }
+
+  if (changePassword($legajo, $password, $newPassword) === 1) {
+    return array('tipo' => 'danger', 'mensaje' => 'Contraseña actual incorrecta.');
+  }
+
+  return array('tipo' => 'success', 'mensaje' => 'Contraseña cambiada satisfactoriamente.');
 }

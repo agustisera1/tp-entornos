@@ -95,7 +95,7 @@ if ($_SESSION["rol"] == "Profesor") {
                           <?php
                           } else {
                           ?>
-                            <a type='button' class='btn btn-info disabled' disabled>Bloquear</a>
+                            <a type='button' class='btn btn-warning disabled' disabled>Bloquear</a>
                           <?php
                           }
                           ?>

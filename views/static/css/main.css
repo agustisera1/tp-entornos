@@ -19,7 +19,7 @@ a {
   text-decoration-line: none;
 }
 
-a:visited {
+.breadcrumb-item a:visited {
   color: darkblue;
   text-decoration-line: none;
 }

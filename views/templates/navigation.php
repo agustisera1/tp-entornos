@@ -26,39 +26,48 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="<?= "$URL/mis_consultas"; ?>">Mis consultas</a>
                     </li>
-                    
+
                     <?php
-                    if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin"){
+                    if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
                     ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= "$URL/registrar_profesor"; ?>">Registrar profesor</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= "$URL/registrar_profesor"; ?>">Registrar profesor</a>
+                        </li>
                     <?php
                     }
                     ?>
                 </ul>
 
                 <!-- ITEMS A LA DERECHA DE LA BARRA DE NAVEGACION -->
-                <?php
-                if (!isset($_SESSION["rol"])) {
-                ?>
-                    <ul class="navbar-nav ml-auto">
+
+                <ul class="navbar-nav ml-auto">
+                    <?php
+                    if (!isset($_SESSION["rol"])) {
+                    ?>
                         <li class="nav-item">
                             <a class="nav-link" href=<?= "$URL/login"; ?>>Iniciar sesión</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href=<?= "$URL/register"; ?>>Registrarse</a>
                         </li>
-                    </ul>
-                <?php
-                } else {
-                ?>
-                    <p style="color: #fff; margin-bottom: 0; border-right: 1px solid #fff; padding: 10px;">Bienvenido <?= $_SESSION["nombre"] ?> <?= $_SESSION["apellido"] ?></p>
-                    <a href=<?= "$URL/logout/" ?> style="color: #fff; margin-bottom: 0; padding: 10px;">Cerrar sesión</a>
-                    </ul>
-                <?php
-                }
-                ?>
+                    <?php
+                    } else {
+                    ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?= $_SESSION["nombre"] ?> <?= $_SESSION["apellido"] ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href=<?= "$URL/profile" ?>>Ver perfil</a></li>
+                                <li><a class="dropdown-item" href=<?= "$URL/logout/" ?>>Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    <?php
+                    }
+                    ?>
+                </ul>
+
+
             </div>
         </div>
     </nav>
