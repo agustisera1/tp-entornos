@@ -52,8 +52,9 @@ const removeError = (inputFields) => {
     if (inputTag) {
       inputTag.style.border = null;
     }
-    smallTag.textContent = '';
-    console.log(formField);
+    if (smallTag) {
+      smallTag.textContent = '';
+    }
   }
 }
 
@@ -64,7 +65,9 @@ const showError = (inputField, message) => {
   if (inputTag) {
     inputTag.style.border = "2px solid red";
   }
-  smallTag.textContent = message;
+  if (smallTag) {
+    smallTag.textContent = message;
+  }
 }
 
 const validateRequiredFields = (inputFields) => {

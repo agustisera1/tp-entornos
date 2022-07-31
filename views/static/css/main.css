@@ -15,6 +15,13 @@
   background-color: #e9e9e9;
 }
 
+
+.breadcrumb-item a {
+  text-decoration-line: none;
+}
+
+
 .breadcrumb-item a:visited {
   color: darkblue;
+  text-decoration-line: none
 }

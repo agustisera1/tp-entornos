@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container mt-4 mb-4">
   <div class="row">
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
         <section class="my-3">
           <form action=<?= "$URL/listado_consultas" ?> method="POST" class="d-flex">
