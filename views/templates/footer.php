@@ -112,23 +112,7 @@
 <!-- BOOTSTRAP JS 5.1.3 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src=<?= "$URL/views/static/js/validate.js"; ?>></script>
-<style>
-    a:link {
-        color: white;
-    }
 
-    a:visited {
-        color: gray;
-    }
-
-    a:hover {
-        color: #0d6efd;
-    }
-
-    a:active {
-        color: darkgray;
-    }
-</style>
 </body>
 
 </html>
