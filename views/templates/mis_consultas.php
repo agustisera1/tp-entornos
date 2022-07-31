@@ -62,7 +62,7 @@ if ($_SESSION["rol"] == "Profesor") {
                 <?php
                 }
                 ?>
-                <th scope="col">Operaciones</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -91,11 +91,15 @@ if ($_SESSION["rol"] == "Profesor") {
                         <div class='btn-group'>
                           <?php if ($item->getEstado() == 1) {
                           ?>
-                            <a href=<?= "$URL/motivo_bloqueo/" . $item->getId() ?> type='button' class='btn btn-info' id='bloquear'>Bloquear</a>
+                            <a href=<?= "$URL/motivo_bloqueo/" . $item->getId() ?> type='button' class='btn btn-warning' id='bloquear'>Bloquear</a>
+                          <?php
+                          } else {
+                          ?>
+                            <a type='button' class='btn btn-info disabled' disabled>Bloquear</a>
                           <?php
                           }
                           ?>
-                          <a href=<?= "$URL/ver_inscriptos/" . $item->getId() ?> type='button' class='btn btn-danger' id='ver_inscriptos'>Ver inscriptos</a>
+                          <a href=<?= "$URL/ver_inscriptos/" . $item->getId() ?> type='button' class='btn btn-info' id='ver_inscriptos'>Ver inscriptos</a>
                         </div>
                       <?php
                       }

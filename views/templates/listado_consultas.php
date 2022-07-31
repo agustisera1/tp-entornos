@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <th scope="col">Fecha y hora incio</th>
                 <th scope="col">Fecha y hora fin</th>
                 <th scope="col">Cupo disponible</th>
-                <th scope="col">Operaciones</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -88,9 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php
                     if (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
                     ?>
-                      <div class='btn-group'>
-                        <a href=<?= "$URL/editar_consulta/" . $item->getId() ?> type='button' class='btn btn-info' id='editar'>Editar</a>
-                        <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> type='button' class='btn btn-danger' id='eliminar'>Eliminar</a>
+                      <div class='text-center fs-5 '>
+                        <a href=<?= "$URL/editar_consulta/" . $item->getId() ?> class='text-warning me-2' id='editar'><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href=<?= "$URL/borrar_consulta/" . $item->getId() ?> class='text-danger' id='eliminar'><i class="fa-solid fa-trash-can"></i></a>
                       </div>
                       <?php
                     } elseif (isset($_SESSION["rol"]) and $_SESSION["rol"] == "Alumno" and !isset($motivoBloqueo)) {
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       }
                       ?>
                     <?php
-                    } else {
+                    } elseif (isset($motivoBloqueo)) {
                     ?>
                       <a class="btn btn-primary disabled" type="button" disabled>Bloqueada</a>
                     <?php
