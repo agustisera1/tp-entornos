@@ -1,8 +1,8 @@
 <?php
 
-if(!isset($_SESSION)){ 
-    session_start(); 
-} 
+if (!isset($_SESSION)) {
+  session_start();
+}
 
 
 require_once "./models/Consulta.php";
@@ -16,8 +16,8 @@ function asistir($consultaId)
   $legajo = $_SESSION['legajo'];
 
   $consulta = findConsultaById($consultaId);
-
-  if ($consulta->getCupoDisponible() <= 0) {
+  
+  if ($consulta->getCupoDisponible() > 0) {
     crearInscripcionConsulta($consultaId, $legajo);
   }
 }
@@ -34,7 +34,7 @@ function confirmarInscripcion($consultaId)
   $alumno = findUsuarioByLegajo($legajo);
   $nombre = $alumno->getNombre();
   $apellido = $alumno->getApellido();
-  
+
   mail($emailProfesor, "Inscripción clase de consulta", "El alumno $apellido, $nombre se ha inscripto a su clase de consulta correctamente");
 }
 
