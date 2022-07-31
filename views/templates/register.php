@@ -5,8 +5,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $alert = registro();
 }
 ?>
+
+<section class="border-bottom title-section">
+    <div class="container">
+        <div class="row row-cols-md-2 row-cols-1">
+            <div class="col">
+                <h2 class="pt-4 pb-3 m-0">
+                    REGISTRARSE
+                </h2>
+            </div>
+            <div class="col d-flex justify-content-end pt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item "><a href=<?= "$URL/"; ?>>Inicio</a></li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">Registrarse</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <div class="container p-4">
-    <h3 class="text-center">Registrarse</h3>
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <div class="card">

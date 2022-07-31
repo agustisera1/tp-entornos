@@ -2,7 +2,7 @@
 <?php
 require_once "./controllers/auth.php";
 
-if(!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin"){
+if (!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin") {
     return header("Location: listado_consultas");
 }
 
@@ -10,8 +10,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $alert = registroProfesor();
 }
 ?>
+
+<section class="border-bottom title-section">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="pt-4 pb-3 m-0">
+                    REGISTRO PROFESOR
+                </h2>
+            </div>
+            <div class="col d-flex justify-content-end pt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item "><a href=<?= "$URL/"; ?>>Inicio</a></li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">Registrar Profesor</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <div class="container p-4">
-    <h3 class="text-center">Registrar profesor</h3>
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <div class="card">
