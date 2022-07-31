@@ -29,6 +29,33 @@ function signup($legajo, $nombre, $apellido, $email, $password)
     }
 }
 
+function signupProfesor($legajo, $nombre, $apellido, $email, $password)
+{
+    $usuario = null;
+    try {
+        if (!isset($conn)) $conn = databaseConnection();
+
+        $query = "INSERT INTO usuario VALUES(?, ?, ?, ?, ?)";
+        $query2 = "INSERT INTO usuario_rol VALUES(?, 3)";
+
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "sssss", $legajo, $nombre, $apellido, $email, $password);
+        $res = mysqli_stmt_execute($stmt);
+
+        $stmt = mysqli_prepare($conn, $query2);
+        mysqli_stmt_bind_param($stmt, "s", $legajo);
+        $res = mysqli_stmt_execute($stmt);
+    } catch (Exception $e) {
+        if (mysqli_errno($conn) == 1062) {
+          return "Ya existe un usuario con ese legajo!";
+        }
+        echo $e->getMessage();
+    } finally {
+        if (isset($stmt)) mysqli_stmt_close($stmt);
+        if (isset($conn)) mysqli_close($conn);
+    }
+}
+
 function inicio($legajo, $password)
 {
     try {

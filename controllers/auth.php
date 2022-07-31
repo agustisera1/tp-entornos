@@ -33,6 +33,24 @@ function registro()
   return header("Location: listado_consultas");
 }
 
+function registroProfesor()
+{
+  $legajo = $_POST['legajo'];
+  $nombre = $_POST['nombre'];
+  $apellido = $_POST['apellido'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  
+  $password = md5($password);
+  $msg = signupProfesor($legajo, $nombre, $apellido, $email, $password);
+
+  if(!is_null($msg)) {
+    return $msg;
+  }
+
+  return header("Location: listado_consultas");
+}
+
 function login()
 {
   $legajo = $_POST['legajo'];
