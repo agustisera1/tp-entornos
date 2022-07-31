@@ -68,6 +68,5 @@ function login()
     $_SESSION["rol"] = $usuario->getRol();
     
     return null;
-    return header("Location: listado_consultas");
   }
 }

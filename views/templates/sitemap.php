@@ -20,15 +20,18 @@
 
 <div class="container">
     <section>
-        <div class="row mt-3">
-            <div class="col col-lg-3 col-md-6 col-12">
+        <div class="row row-cols-md-4 row-cols-2 mt-3 d-flex justify-content-between">
+            <div class="col">
                 <h3>CONSULTAS</h3>
                 <ul>
                     <li>
                         <a href=<?= "$URL/listado_consultas" ?>>Listado de consultas</a>
                         <ul>
                             <li>
-                                <a href="">Nueva Consulta</a>
+                                <a href=<?= "$URL/nueva_consulta" ?>>Nueva Consulta</a>
+                            </li>
+                            <li>
+                                <a href=<?= "$URL/editar_consulta" ?>>Editar Consulta</a>
                             </li>
                         </ul>
                     </li>
@@ -43,7 +46,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col col-lg-3 col-md-6 col-12">
+            <div class="col">
                 <h3>USUARIO</h3>
                 <ul>
                     <li>
@@ -57,7 +60,7 @@
                     </li> -->
                 </ul>
             </div>
-            <div class="col col-lg-3 col-md-6 col-12">
+            <div class="col">
                 <h3>SOPORTE</h3>
                 <ul>
                     <li>

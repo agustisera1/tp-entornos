@@ -1,6 +1,12 @@
 <!-- FORMULARIO DE ALTA DE CONSULTA -->
 <?php
 require_once "./controllers/consultaController.php";
+
+if (!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin") {
+    header("Location: $URL/401");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
     if (isset($_FILES['file'])) {
         $alert = leerExcel();

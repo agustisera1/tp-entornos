@@ -1,10 +1,16 @@
 <!-- FORMULARIO DE EDIT DE CONSULTA -->
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
 require_once "./controllers/consultaController.php";
+
+if (!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin") {
+    header("Location: $URL/401");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin") {
     $alert = editarConsulta();
 }
@@ -99,9 +105,9 @@ $listadoProfesores = listadoProfesoresParaConsulta();
     let fechaHoraFin = document.getElementById("inputFechaHoraFin")
 
     guardarCambios.addEventListener("click", ($event) => {
-    if(fechaHoraInicio.value == "" || fechaHoraFin.value == "") {
-        $event.preventDefault()
-        alert("Faltan rellenar campos")
-    }
-  })
+        if (fechaHoraInicio.value == "" || fechaHoraFin.value == "") {
+            $event.preventDefault()
+            alert("Faltan rellenar campos")
+        }
+    })
 </script>
