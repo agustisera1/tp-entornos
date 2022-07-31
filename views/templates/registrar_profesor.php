@@ -1,18 +1,23 @@
 <!-- FORMULARIO DE REGISTRO -->
 <?php
 require_once "./controllers/auth.php";
+
+if(!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin"){
+    return header("Location: listado_consultas");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $alert = registro();
+    $alert = registroProfesor();
 }
 ?>
 <div class="container p-4">
-    <h3 class="text-center">Registrarse</h3>
+    <h3 class="text-center">Registrar profesor</h3>
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <?php require_once "alerts.php"; ?>
-                    <form action=<?= "$URL/register" ?> method="POST" class="col-12" id="formRegistro">
+                    <form action=<?= "$URL/registrar_profesor" ?> method="POST" class="col-12" id="formRegistro">
                         <div class="form-group mb-3">
                             <label for="inputNombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="inputNombre" aria-describedby="" name="nombre" placeholder="Ingresar nombre">
@@ -47,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary" id="register">Registrarse</button>
+                            <button type="submit" class="btn btn-primary" id="register">Registrar</button>
                         </div>
                     </form>
                 </div>

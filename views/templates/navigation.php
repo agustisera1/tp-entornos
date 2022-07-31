@@ -26,6 +26,16 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="<?= "$URL/mis_consultas"; ?>">Mis consultas</a>
                     </li>
+                    
+                    <?php
+                    if(isset($_SESSION["rol"]) and $_SESSION["rol"] == "Admin"){
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= "$URL/registrar_profesor"; ?>">Registrar profesor</a>
+                    </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
                 <!-- FORMULARIO DE BUSQUEDA -->
                 <!-- <form class="d-flex">
