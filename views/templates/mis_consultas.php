@@ -49,7 +49,7 @@ if ($_SESSION["rol"] == "Profesor") {
                 <th scope="col">Materia</th>
                 <th scope="col">Modalidad</th>
                 <th scope="col">Fecha y hora incio</th>
-                <th scope="col">Fecha y hora fin</th>
+                <th scope="col">Duracion</th>
                 <th scope="col">Link</th>
                 <?php
                 if ($_SESSION["rol"] == "Profesor") {
@@ -77,7 +77,7 @@ if ($_SESSION["rol"] == "Profesor") {
                     <td><?= $item->getMateria()->getNombre(); ?></td>
                     <td><?= $item->getModalidad() ?></td>
                     <td><?= $item->getFechaHoraInicio() ?></td>
-                    <td><?= $item->getFechaHoraFin() ?></td>
+                    <td><?= $item->getDuracion() ?></td>
                     <td><?= $item->getLink() ?></td>
                     <td><?php if ($item->getEstado() == 1) {
                           echo "No";

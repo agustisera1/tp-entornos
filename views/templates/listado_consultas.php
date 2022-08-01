@@ -49,10 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="row">
     <div class="card mb-3">
       <div class="card-body">
+        <?php require_once "alerts.php"; ?>
         <section class="my-3">
-          <form action=<?= "$URL/listado_consultas" ?> method="POST" class="d-flex">
+          <form action=<?= "$URL/listado_consultas" ?> method="POST" class="d-flex" id="formBuscarConsulta">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" name="search">
+              <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" name="search" id="inputBuscar">
               <button class="btn btn-outline-primary" type="submit">Buscar</button>
             </div>
           </form>
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <th scope="col">Profesor</th>
                 <th scope="col">Modalidad</th>
                 <th scope="col">Fecha y hora incio</th>
-                <th scope="col">Fecha y hora fin</th>
+                <th scope="col">Duracion(hs)</th>
                 <th scope="col">Cupo disponible</th>
                 <th scope="col"></th>
               </tr>
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <td><?= $item->getProfesor()->getNombre() . " " . $item->getProfesor()->getApellido() ?></td>
                   <td><?= $item->getModalidad() ?></td>
                   <td><?= $item->getFechaHoraInicio() ?></td>
-                  <td><?= $item->getFechaHoraFin() ?></td>
+                  <td><?= $item->getDuracion() ?></td>
                   <td class="text-center"><?= $item->getCupoDisponible() ?></td>
                   <td>
                     <?php
@@ -135,3 +136,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
   </div>
 </div>
+<script>
+  const formBuscarConsulta = document.getElementById("formBuscarConsulta");
+  const inputBuscar = document.getElementById("inputBuscar");
+
+  formBuscarConsulta.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let inputFields = [{
+      field: inputBuscar,
+      message: "El campo de busqueda es requerido"
+    }];
+
+    removeError(inputFields);
+
+    let valid = validateRequiredFields(inputFields);
+
+    if (valid) {
+      formBuscarConsulta.submit();
+    }
+  })
+</script>

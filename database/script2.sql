@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `consulta`;
 CREATE TABLE `consulta` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`fecha_hora_inicio` DATETIME NULL DEFAULT NULL,
-    `fecha_hora_fin` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    `duracion` VARCHAR(255) NULL,
     `modalidad` VARCHAR(255) NULL DEFAULT NULL,
     `link` VARCHAR(255) NULL DEFAULT NULL,
     `profesor_legajo` INT NULL DEFAULT NULL,

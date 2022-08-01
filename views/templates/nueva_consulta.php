@@ -18,7 +18,6 @@ $listadoMaterias = listadoMateriasParaConsulta();
 $listadoProfesores = listadoProfesoresParaConsulta();
 ?>
 
-
 <section class="border-bottom title-section">
     <div class="container">
         <div class="row row-cols-md-2 row-cols-1">
@@ -51,13 +50,24 @@ $listadoProfesores = listadoProfesoresParaConsulta();
                             <form action=<?= "$URL/nueva_consulta" ?> method="POST" class="col-12" id="formNuevaConsulta">
                                 <div class="form-group mb-3">
                                     <label for="inputFechaHoraInicio" class="form-label">Fecha y hora inicio</label>
-                                    <input type="datetime-local" class="form-control" id="inputFechaHoraInicio" name="fechaHoraInicio" aria-describedby="fechaHoraHelp">
+                                    <input type="datetime-local" min=<?= date("Y-m-d\TH:i:00", time()); ?> class="form-control" id="inputFechaHoraInicio" name="fechaHoraInicio" aria-describedby="fechaHoraHelp">
                                     <small class="text-danger"></small>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="inputFechaHoraFin" class="form-label">Fecha y hora fin</label>
-                                    <input type="datetime-local" class="form-control" id="inputFechaHoraFin" name="fechaHoraFin" aria-describedby="fechaHoraHelp">
-                                    <small class="text-danger"></small>
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inputDuracion" class="form-label">Duracion</label>
+                                            <input type="number" min="45" step="45" class="form-control" id="inputDuracion" name="duracion" aria-describedby="duracionHelp">
+                                            <small class="text-danger"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inputCupo" class="form-label">Cupo</label>
+                                            <input type="number" min="1" step="1" class="form-control" id="inputCupo" name="cupo" aria-describedby="cupoHelp">
+                                            <small class="text-danger"></small>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -140,7 +150,8 @@ $listadoProfesores = listadoProfesoresParaConsulta();
     const formNuevaConsulta = document.getElementById("formNuevaConsulta");
     const inputLink = document.getElementById("inputLink");
     const inputFechaHoraInicio = document.getElementById("inputFechaHoraInicio");
-    const inputFechaHoraFin = document.getElementById("inputFechaHoraFin");
+    const inputDuracion = document.getElementById("inputDuracion");
+    const inputCupo = document.getElementById("inputCupo");
     const inputMateria = document.getElementById("inputMateria");
     const inputProfesor = document.getElementById("inputProfesor");
     const inputModalidad = document.getElementsByName("modalidad");
@@ -154,8 +165,11 @@ $listadoProfesores = listadoProfesoresParaConsulta();
             field: inputFechaHoraInicio,
             message: "La fecha de inicio es requerida"
         }, {
-            field: inputFechaHoraFin,
-            message: "La fecha de fin es requerida"
+            field: inputDuracion,
+            message: "La duracion es requerida"
+        }, {
+            field: inputCupo,
+            message: "El cupo es requerido"
         }, {
             field: inputMateria,
             message: "La materia es requerida"

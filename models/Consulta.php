@@ -4,7 +4,7 @@ class Consulta
 {
     private $id;
     private $fechaHoraInicio;
-    private $fechaHoraFin;
+    private $duracion;
     private $modalidad;
     private $link;
     private $cupo;
@@ -32,14 +32,14 @@ class Consulta
     {
         $this->fechaHoraInicio = $fechaHoraInicio;
     }
-    public function getFechaHoraFin()
+    public function getDuracion()
     {
-        return $this->fechaHoraFin;
+        return $this->duracion;
     }
 
-    public function setFechaHoraFin($fechaHoraFin)
+    public function setDuracion($duracion)
     {
-        $this->fechaHoraFin = $fechaHoraFin;
+        $this->duracion = $duracion;
     }
     public function getModalidad()
     {
