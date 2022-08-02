@@ -66,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <th scope="col">Materia</th>
                 <th scope="col">Profesor</th>
                 <th scope="col">Modalidad</th>
+                <th scope="col">Link</th>
                 <th scope="col">Fecha y hora incio</th>
                 <th scope="col">Duracion(hs)</th>
                 <th scope="col">Cupo disponible</th>
@@ -82,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <td><?= $item->getMateria()->getNombre(); ?></td>
                   <td><?= $item->getProfesor()->getNombre() . " " . $item->getProfesor()->getApellido() ?></td>
                   <td><?= $item->getModalidad() ?></td>
+                  <td><?= $item->getLink() ?></td>
                   <td><?= $item->getFechaHoraInicio() ?></td>
                   <td><?= $item->getDuracion() ?></td>
                   <td class="text-center"><?= $item->getCupoDisponible() ?></td>

@@ -77,7 +77,7 @@ if ($_SESSION["rol"] == "Profesor") {
                     <td><?= $item->getMateria()->getNombre(); ?></td>
                     <td><?= $item->getModalidad() ?></td>
                     <td><?= $item->getFechaHoraInicio() ?></td>
-                    <td><?= $item->getDuracion() ?></td>
+                    <td><?= $item->getDuracion(); ?></td>
                     <td><?= $item->getLink() ?></td>
                     <td><?php if ($item->getEstado() == 1) {
                           echo "No";
@@ -114,7 +114,7 @@ if ($_SESSION["rol"] == "Profesor") {
                     <td><?= $item->getConsulta()->getMateria()->getNombre(); ?></td>
                     <td><?= $item->getConsulta()->getModalidad() ?></td>
                     <td><?= $item->getConsulta()->getFechaHoraInicio() ?></td>
-                    <td><?= $item->getConsulta()->getFechaHoraFin() ?></td>
+                    <td><?= $item->getConsulta()->getDuracion() ?></td>
                     <td><?= $item->getConsulta()->getLink() ?></td>
                     <td><?php if ($item->getEstado() == 1) {
                           echo "Confirmado";
