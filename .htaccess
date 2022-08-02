@@ -1,4 +1,7 @@
 Options All -Indexes
 
+php_value output_buffering On
+php_value output_handler mb_output_handler
+
 RewriteEngine On
 RewriteRule ^([a-zA-Z0-9/_]+)$ index.php?params=$1
