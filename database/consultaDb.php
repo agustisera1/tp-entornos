@@ -22,7 +22,7 @@ function findAllConsultas()
                 $consulta = new Consulta();
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
@@ -30,6 +30,8 @@ function findAllConsultas()
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -51,7 +53,7 @@ function ConsultasNoInscriptas($legajo)
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "SELECT * FROM consulta WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo)";
+        $query = "SELECT * FROM consulta WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo AND i.estado_id = 1)";
 
         $rs = mysqli_query($conn, $query);
 
@@ -60,7 +62,7 @@ function ConsultasNoInscriptas($legajo)
                 $consulta = new Consulta();
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
@@ -69,6 +71,8 @@ function ConsultasNoInscriptas($legajo)
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -99,13 +103,14 @@ function findConsultasProfesor($profesor_legajo)
                 $consulta = new Consulta();
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
                 $consulta->setEstado($item['estado']);
 
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -138,7 +143,7 @@ function findConsultasAlumno($legajo_alumno)
 
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
 
@@ -160,15 +165,15 @@ function findConsultasAlumno($legajo_alumno)
     }
 }
 
-function saveConsulta($fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
+function saveConsulta($fechaHoraInicio, $duracion, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
 {
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "INSERT INTO consulta (fecha_hora_inicio, fecha_hora_fin, modalidad, link, cupo, profesor_legajo, materia_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO consulta (fecha_hora_inicio, duracion, modalidad, link, cupo, profesor_legajo, materia_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "ssssiii", $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $cupo, $profesor_legajo, $materia_id);
+        mysqli_stmt_bind_param($stmt, "ssssiii", $fechaHoraInicio, $duracion, $modalidad, $link, $cupo, $profesor_legajo, $materia_id);
         mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -179,15 +184,15 @@ function saveConsulta($fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $mater
     }
 }
 
-function updateConsulta($id, $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
+function updateConsulta($id, $fechaHoraInicio, $duracion, $modalidad, $link, $materia_id, $profesor_legajo, $cupo)
 {
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "UPDATE consulta SET fecha_hora_inicio = ?, fecha_hora_fin = ?, modalidad = ?, link = ?, cupo = ?, profesor_legajo = ?, materia_id = ? WHERE id = ?";
+        $query = "UPDATE consulta SET fecha_hora_inicio = ?, duracion = ?, modalidad = ?, link = ?, cupo = ?, profesor_legajo = ?, materia_id = ? WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "ssssiiii", $fechaHoraInicio, $fechaHoraFin, $modalidad, $link, $cupo, $profesor_legajo, $materia_id, $id);
+        mysqli_stmt_bind_param($stmt, "ssssiiii", $fechaHoraInicio, $duracion, $modalidad, $link, $cupo, $profesor_legajo, $materia_id, $id);
         mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -197,7 +202,6 @@ function updateConsulta($id, $fechaHoraInicio, $fechaHoraFin, $modalidad, $link,
         if (isset($conn)) mysqli_close($conn);
     }
 }
-
 
 function findConsultaById($id)
 {
@@ -217,7 +221,7 @@ function findConsultaById($id)
             $consulta = new Consulta();
             $consulta->setId($c['id']);
             $consulta->setFechaHoraInicio($c['fecha_hora_inicio']);
-            $consulta->setFechaHoraFin($c['fecha_hora_fin']);
+            $consulta->setDuracion($c['duracion']);
             $consulta->setModalidad($c['modalidad']);
             $consulta->setLink($c['link']);
             $consulta->setCupo($c['cupo']);
@@ -225,6 +229,7 @@ function findConsultaById($id)
 
             $consulta->setProfesor(findUsuarioByLegajo($c['profesor_legajo']));
             $consulta->setMateria(findMateriaById($c['materia_id']));
+            $consulta->setCupoDisponible(verInscriptos($c['id']));
         }
 
         return $consulta;
@@ -246,7 +251,7 @@ function deleteConsultaById($id)
 
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
+        return mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
     } finally {
@@ -256,15 +261,15 @@ function deleteConsultaById($id)
     }
 }
 
-function bloquearConsultaId($motivo, $fechaHoraInicio, $fechaHoraFin, $id)
+function bloquearConsultaId($motivo, $fechaHoraInicio, $id)
 {
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "UPDATE consulta SET estado = 0, motivo_bloqueo = ?, fecha_hora_inicio = ?, fecha_hora_fin = ? WHERE id = ?";
+        $query = "UPDATE consulta SET estado = 0, motivo_bloqueo = ?, fecha_hora_inicio = ? WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "sssi", $motivo, $fechaHoraInicio, $fechaHoraFin, $id);
+        mysqli_stmt_bind_param($stmt, "ssi", $motivo, $fechaHoraInicio, $id);
         mysqli_stmt_execute($stmt);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -311,7 +316,8 @@ function verInscriptos($id)
     }
 }
 
-function searchConsulta($busqueda) {
+function searchConsulta($busqueda)
+{
     $listadoConsultas = array();
 
     try {
@@ -326,7 +332,7 @@ function searchConsulta($busqueda) {
                 $consulta = new Consulta();
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
@@ -334,6 +340,7 @@ function searchConsulta($busqueda) {
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }
@@ -348,13 +355,14 @@ function searchConsulta($busqueda) {
     }
 }
 
-function searchConsultaNoInscriptas($busqueda, $legajo) {
+function searchConsultaNoInscriptas($busqueda, $legajo)
+{
     $listadoConsultas = array();
 
     try {
         if (!isset($conn)) $conn = databaseConnection();
 
-        $query = "SELECT c.id, c.fecha_hora_inicio, c.fecha_hora_fin, c.modalidad, c.link, c.cupo, c.estado, c.profesor_legajo, c.materia_id FROM consulta AS c INNER JOIN materia AS m ON c.materia_id=m.id INNER JOIN usuario AS u ON c.profesor_legajo=u.legajo WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND (m.nombre LIKE '%" . $busqueda . "%' OR u.nombre LIKE '%" . $busqueda . "%' OR u.apellido LIKE '%" . $busqueda . "%') AND c.id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo)";
+        $query = "SELECT c.id, c.fecha_hora_inicio, c.duracion, c.modalidad, c.link, c.cupo, c.estado, c.profesor_legajo, c.materia_id FROM consulta AS c INNER JOIN materia AS m ON c.materia_id=m.id INNER JOIN usuario AS u ON c.profesor_legajo=u.legajo WHERE fecha_hora_inicio > CURRENT_TIMESTAMP AND (m.nombre LIKE '%" . $busqueda . "%' OR u.nombre LIKE '%" . $busqueda . "%' OR u.apellido LIKE '%" . $busqueda . "%') AND c.id NOT IN(SELECT id FROM consulta c INNER JOIN inscripcion i ON id = consulta_id WHERE i.alumno_id = $legajo)";
 
         $rs = mysqli_query($conn, $query);
 
@@ -363,7 +371,7 @@ function searchConsultaNoInscriptas($busqueda, $legajo) {
                 $consulta = new Consulta();
                 $consulta->setId($item['id']);
                 $consulta->setFechaHoraInicio($item['fecha_hora_inicio']);
-                $consulta->setFechaHoraFin($item['fecha_hora_fin']);
+                $consulta->setDuracion($item['duracion']);
                 $consulta->setModalidad($item['modalidad']);
                 $consulta->setLink($item['link']);
                 $consulta->setCupo($item['cupo']);
@@ -371,6 +379,7 @@ function searchConsultaNoInscriptas($busqueda, $legajo) {
 
                 $consulta->setProfesor(findUsuarioByLegajo($item['profesor_legajo']));
                 $consulta->setMateria(findMateriaById($item['materia_id']));
+                $consulta->setCupoDisponible(verInscriptos($item['id']));
 
                 array_push($listadoConsultas, $consulta);
             }

@@ -10,3 +10,52 @@
     ),
     url(../img/utn-jumbotron.jpg);
 }
+
+.title-section {
+  background-color: #e9e9e9;
+}
+
+a {
+  text-decoration-line: none;
+}
+
+.breadcrumb-item a:visited {
+  color: darkblue;
+  text-decoration-line: none;
+}
+
+footer a {
+  text-decoration-line: none;
+}
+
+footer a:link {
+  color: white;
+}
+
+footer a:visited {
+  color: gray;
+}
+
+footer a:hover {
+  color: #0d6efd;
+}
+
+footer a:active {
+  color: darkgray;
+}
+
+/* a:link {
+  color: white;
+}
+
+a:visited {
+  color: gray;
+}
+
+a:hover {
+  color: #0d6efd;
+}
+
+a:active {
+  color: darkgray;
+} */

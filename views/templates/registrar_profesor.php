@@ -1,24 +1,29 @@
 <!-- FORMULARIO DE REGISTRO -->
 <?php
 require_once "./controllers/auth.php";
+
+if (!isset($_SESSION["rol"]) or $_SESSION["rol"] !== "Admin") {
+    return header("Location: listado_consultas");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $alert = registro();
+    $alert = registroProfesor();
 }
 ?>
 
 <section class="border-bottom title-section">
     <div class="container">
-        <div class="row row-cols-md-2 row-cols-1">
+        <div class="row">
             <div class="col">
                 <h2 class="pt-4 pb-3 m-0">
-                    REGISTRARSE
+                    REGISTRO PROFESOR
                 </h2>
             </div>
             <div class="col d-flex justify-content-end pt-4">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item "><a href=<?= "$URL/"; ?>>Inicio</a></li>
-                        <li class="breadcrumb-item active text-dark" aria-current="page">Registrarse</li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">Registrar Profesor</li>
                     </ol>
                 </nav>
             </div>
@@ -33,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card">
                 <div class="card-body">
                     <?php require_once "alerts.php"; ?>
-                    <form action=<?= "$URL/register" ?> method="POST" class="col-12" id="formRegistro">
+                    <form action=<?= "$URL/registrar_profesor" ?> method="POST" class="col-12" id="formRegistro">
                         <div class="form-group mb-3">
                             <label for="inputNombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="inputNombre" aria-describedby="" name="nombre" placeholder="Ingresar nombre">
@@ -68,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary" id="register">Registrarse</button>
+                            <button type="submit" class="btn btn-primary" id="register">Registrar</button>
                         </div>
                     </form>
                 </div>
